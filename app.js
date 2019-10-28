@@ -28,27 +28,38 @@ app.get('/sum', (req, res) => {
     res.send(`${sum}`);
 });
 
-app.get('/greetings', (req, res) => {
+app.get('/cipher', (req, res) => {
     //1. get values from the request
-    const name = req.query.name;
-    const race = req.query.race;
+    const text = req.query.text;
+    const shift = req.query.shift;
 
     //2. validate the values
-    if(!name) {
+    if(!text) {
         //3. name was not provided
-        return res.status(400).send('Please provide a name');
+        return res.status(400).send('Please provide a text');
     }
 
-    if(!race) {
+    if(!shift) {
         //3. race was not provided
-        return res.status(400).send('Please provide a race');
+        return res.status(400).send('Please provide a shift');
     }
 
     //4. and 5. both name and race are valid so do the processing.
-    const greeting = `Greetings ${name} the ${race}, welcome to our kingdom.`;
+   const ceasarCipher = function() {
+       let arr = text.split(''); 
+       let arr2=[];
+       console.log(arr2);
+       for (let char of arr) {
+        
+           arr2.push(String.fromCharCode(String.charCodeAt(char) + parseInt(shift)))  
+           console.log(arr2)
+       }
+       console.log(arr2);
+       return arr2.join(); 
+   }
 
     //6. send the response
-    res.send(greeting);
+    res.send(ceasarCipher());
 });
 
 app.listen(8000, (req, res) => {
